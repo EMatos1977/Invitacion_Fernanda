@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis XV – Fernanda Scarlet</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rosa: #e8a0b4;
+    --rosa-dark: #c0607a;
+    --rosa-light: #fce8f0;
+    --azul: #7ab8d4;
+    --azul-dark: #3a7a9c;
+    --azul-light: #dff0f8;
+    --turquesa: #4ec9c2;
+    --dorado: #c9a227;
+    --dorado-light: #f5e090;
+    --blanco: #fff8fc;
+    --texto: #3a2a35;
+    --texto-suave: #7a5a6a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: #0a0610;
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ===== PARTICLES BG ===== */
+  #particles {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  /* ===== MODAL PORTADA ===== */
+  #modal-portada {
+    position: fixed; inset: 0;
+    background: linear-gradient(160deg, #0a0a1a 0%, #1a0520 50%, #0a1020 100%);
+    z-index: 1000;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #modal-portada.oculto {
+    opacity: 0; transform: scale(1.05);
+    pointer-events: none;
+  }
+  .modal-flores {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+  .modal-xv {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(5rem, 15vw, 9rem);
+    background: linear-gradient(135deg, var(--rosa), var(--azul), var(--turquesa));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 20px rgba(126,190,220,0.4));
+  }
+  .modal-nombre {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    color: var(--dorado-light);
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+  }
+  .modal-btn {
+    background: linear-gradient(135deg, var(--rosa-dark), var(--azul-dark));
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 50px;
+    box-shadow: 0 0 30px rgba(200,100,130,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .modal-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(200,100,130,0.6);
+  }
+  .modal-stars {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .star {
+    position: absolute; width: 3px; height: 3px;
+    background: white; border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100%{opacity:0.1} 50%{opacity:0.9} }
+
+  /* ===== MAIN CONTENT ===== */
+  #main-content { position: relative; z-index: 1; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0a1a 0%, #180828 40%, #0e1830 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 4rem 2rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(232,160,180,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(122,184,212,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-deco-line {
+    width: 1px; height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--dorado), transparent);
+    margin: 0 auto 2rem;
+    animation: fadeIn 1.5s ease 0.3s both;
+  }
+  .hero-invitado {
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+    color: var(--dorado);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+  .hero-xv {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(7rem, 20vw, 13rem);
+    background: linear-gradient(135deg, var(--rosa) 0%, var(--dorado-light) 40%, var(--azul) 70%, var(--turquesa) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 0.9;
+    margin-bottom: 0.5rem;
+    animation: fadeIn 1.2s ease 0.6s both;
+    filter: drop-shadow(0 0 40px rgba(200,160,100,0.3));
+  }
+  .hero-anos {
+    font-size: 0.9rem;
+    letter-spacing: 8px;
+    color: var(--dorado);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: fadeIn 1s ease 0.8s both;
+  }
+  .hero-nombre {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    color: white;
+    text-shadow: 0 0 40px rgba(232,160,180,0.5);
+    margin-bottom: 0.5rem;
+    animation: fadeIn 1.2s ease 1s both;
+  }
+  .hero-apellido {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    animation: fadeIn 1s ease 1.1s both;
+  }
+  .hero-fecha-box {
+    display: inline-flex; flex-direction: column; align-items: center;
+    border: 0.5px solid rgba(201,162,39,0.4);
+    padding: 1.5rem 3rem;
+    position: relative;
+    animation: fadeIn 1s ease 1.3s both;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(4px);
+  }
+  .hero-fecha-box::before, .hero-fecha-box::after {
+    content: '✦';
+    position: absolute; top: -10px;
+    color: var(--dorado); font-size: 1.2rem;
+  }
+  .hero-fecha-box::before { left: -10px; }
+  .hero-fecha-box::after  { right: -10px; }
+  .hero-fecha-dia  { font-size: 3.5rem; font-weight: 400; color: white; line-height: 1; }
+  .hero-fecha-mes  { font-size: 0.8rem; letter-spacing: 5px; color: var(--rosa); text-transform: uppercase; }
+  .hero-fecha-año  { font-size: 1rem; letter-spacing: 4px; color: var(--azul); margin-top: 0.3rem; }
+
+  @keyframes fadeIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ===== SECTION BASE ===== */
+  .seccion {
+    padding: 5rem 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .seccion-titulo {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .seccion-subtitulo {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0.7;
+  }
+  .divider-oro {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 320px; margin: 0 auto 3rem;
+  }
+  .divider-oro::before, .divider-oro::after {
+    content: ''; flex: 1; height: 0.5px;
+    background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+  }
+  .divider-oro-icono { color: var(--dorado); font-size: 1rem; }
+
+  /* ===== EVENTO ===== */
+  .evento-bg {
+    background: linear-gradient(180deg, #0e0e20 0%, #18082a 100%);
+    color: white;
+  }
+  .evento-bg .seccion-titulo { color: var(--rosa); }
+  .evento-bg .seccion-subtitulo { color: rgba(255,255,255,0.5); }
+  .evento-card {
+    max-width: 480px; margin: 0 auto;
+    border: 0.5px solid rgba(201,162,39,0.3);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .evento-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,160,180,0.05), rgba(122,184,212,0.05));
+    pointer-events: none;
+  }
+  .evento-icono { font-size: 2.5rem; margin-bottom: 1rem; }
+  .evento-lugar {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .evento-detalle {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .evento-hora {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-dark), var(--azul-dark));
+    color: white;
+    padding: 0.6rem 2rem;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+  }
+  .btn-mapa {
+    display: inline-block;
+    border: 0.5px solid var(--dorado);
+    color: var(--dorado-light);
+    padding: 0.7rem 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+    border-radius: 2px;
+  }
+  .btn-mapa:hover { background: rgba(201,162,39,0.15); }
+
+  /* ===== DRESS CODE ===== */
+  .dresscode-bg {
+    background: linear-gradient(180deg, #18082a 0%, #0a1020 100%);
+    color: white;
+  }
+  .dresscode-bg .seccion-titulo { color: var(--azul); }
+  .dresscode-bg .seccion-subtitulo { color: rgba(255,255,255,0.5); }
+  .dresscode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem; max-width: 600px; margin: 0 auto;
+  }
+  .color-chip {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-radius: 8px;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s;
+  }
+  .color-chip:hover { transform: translateY(-4px); }
+  .color-chip-circulo {
+    width: 56px; height: 56px; border-radius: 50%;
+    margin: 0 auto 0.8rem;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+  .color-chip-nombre {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .dresscode-nota {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: var(--turquesa);
+    font-size: 1.1rem;
+  }
+
+  /* ===== PERSONAS FAVORITAS ===== */
+  .personas-bg {
+    background: linear-gradient(180deg, #0a1020 0%, #180820 100%);
+    color: white;
+  }
+  .personas-bg .seccion-titulo { color: var(--rosa); }
+  .personas-bg .seccion-subtitulo { color: rgba(255,255,255,0.5); }
+  .personas-intro {
+    text-align: center;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    max-width: 400px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .personas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem; max-width: 700px; margin: 0 auto;
+  }
+  .persona-card {
+    text-align: center;
+    padding: 1.8rem 1rem;
+    border: 0.5px solid rgba(232,160,180,0.2);
+    background: rgba(255,255,255,0.03);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .persona-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(232,160,180,0.5);
+  }
+  .persona-avatar {
+    width: 70px; height: 70px; border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    border: 1.5px solid rgba(201,162,39,0.4);
+  }
+  .persona-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+  .persona-rol {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dorado);
+  }
+
+  /* ===== REGALOS ===== */
+  .regalos-bg {
+    background: linear-gradient(180deg, #180820 0%, #0e0e20 100%);
+    color: white;
+  }
+  .regalos-bg .seccion-titulo { color: var(--turquesa); }
+  .regalos-bg .seccion-subtitulo { color: rgba(255,255,255,0.5); }
+  .regalos-texto {
+    text-align: center;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    max-width: 420px; margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .regalo-opciones {
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    max-width: 400px; margin: 0 auto;
+  }
+  .regalo-chip {
+    width: 100%; padding: 1rem 1.5rem;
+    border: 0.5px solid rgba(78,201,194,0.3);
+    background: rgba(78,201,194,0.05);
+    text-align: center;
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  .regalo-chip strong { color: var(--turquesa); }
+
+  /* ===== CONFIRMACION ===== */
+  .confirmacion-bg {
+    background: linear-gradient(180deg, #0e0e20 0%, #0a0610 100%);
+    color: white;
+  }
+  .confirmacion-bg .seccion-titulo { color: var(--dorado-light); }
+  .confirmacion-bg .seccion-subtitulo { color: rgba(255,255,255,0.5); }
+  .confirmacion-texto {
+    text-align: center;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    max-width: 400px; margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .whatsapp-btn {
+    display: flex; align-items: center; gap: 14px;
+    max-width: 360px; margin: 0 auto;
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    color: white; text-decoration: none;
+    padding: 1.2rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    justify-content: center;
+    box-shadow: 0 4px 30px rgba(37,211,102,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .whatsapp-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 40px rgba(37,211,102,0.5);
+  }
+  .wp-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #0a0610;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  footer span {
+    display: block; margin-bottom: 0.5rem;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: rgba(232,160,180,0.5);
+    letter-spacing: 1px;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,6,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(201,162,39,0.2);
+    display: flex; justify-content: center; gap: 0;
+    padding: 0;
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+  }
+  nav.visible { transform: translateY(0); }
+  nav a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 1rem 0.8rem;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--rosa); }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0a0610; }
+  ::-webkit-scrollbar-thumb { background: var(--rosa-dark); border-radius: 2px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    nav a { font-size: 0.55rem; padding: 0.8rem 0.5rem; letter-spacing: 1px; }
+    .dresscode-grid { grid-template-columns: repeat(3, 1fr); }
+    .personas-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- MODAL PORTADA -->
+<div id="modal-portada">
+  <div class="modal-stars" id="stars-container"></div>
+  <div class="modal-flores">🌸✨🌸</div>
+  <div class="modal-xv">XV</div>
+  <div class="modal-nombre">Fernanda Scarlet</div>
+  <button class="modal-btn" onclick="entrar()">✦ Abrir Invitación ✦</button>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#evento">Evento</a>
+  <a href="#dresscode">Dress Code</a>
+  <a href="#personas">Familia</a>
+  <a href="#regalos">Regalos</a>
+  <a href="#confirmacion">Confirmar</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-deco-line"></div>
+    <div class="hero-invitado">¡Estás cordialmente invitado!</div>
+    <div class="hero-xv">XV</div>
+    <div class="hero-anos">· A ñ o s ·</div>
+    <div class="hero-nombre">Fernanda Scarlet</div>
+    <div class="hero-apellido">Matos Páez</div>
+    <div class="hero-fecha-box">
+      <div class="hero-fecha-mes">Sábado · Agosto</div>
+      <div class="hero-fecha-dia">01</div>
+      <div class="hero-fecha-año">· 2 0 2 6 ·</div>
+    </div>
+  </section>
+
+  <!-- EVENTO -->
+  <section class="seccion evento-bg" id="evento">
+    <div class="seccion-titulo" style="color:var(--rosa)">Dónde & Cuándo</div>
+    <div class="seccion-subtitulo">El gran día</div>
+    <div class="divider-oro"><span class="divider-oro-icono">✦</span></div>
+    <div class="evento-card">
+      <div class="evento-icono">🏛️</div>
+      <div class="evento-lugar">Salón Real Victoria</div>
+      <div class="evento-detalle">
+        Durango, Dgo. México<br>
+        Sábado, 1 de agosto de 2026
+      </div>
+      <div class="evento-hora">16:00 hrs.</div>
+      <br>
+      <a href="https://maps.google.com" target="_blank" class="btn-mapa">
+        📍 Ver en el mapa
+      </a>
+    </div>
+  </section>
+
+  <!-- DRESS CODE -->
+  <section class="seccion dresscode-bg" id="dresscode">
+    <div class="seccion-titulo" style="color:var(--azul)">Dress Code</div>
+    <div class="seccion-subtitulo">Código de vestimenta</div>
+    <div class="divider-oro"><span class="divider-oro-icono">✦</span></div>
+    <div class="dresscode-grid">
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#e8a0b4,#f5c8d8);"></div>
+        <div class="color-chip-nombre">Rosa</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#7ab8d4,#a8d8f0);"></div>
+        <div class="color-chip-nombre">Azul</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#000,#222);"></div>
+        <div class="color-chip-nombre">Negro</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#f9f9f9,#e8e8e8); border: 1px solid #ccc;"></div>
+        <div class="color-chip-nombre">Blanco</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#c9a227,#f5e090);"></div>
+        <div class="color-chip-nombre">Dorado</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-circulo" style="background: linear-gradient(135deg,#4ec9c2,#8de8e4);"></div>
+        <div class="color-chip-nombre">Turquesa</div>
+      </div>
+    </div>
+    <div class="dresscode-nota">
+      ✦ El color turquesa está reservado para la quinceañera ✦
+    </div>
+  </section>
+
+  <!-- PERSONAS FAVORITAS -->
+  <section class="seccion personas-bg" id="personas">
+    <div class="seccion-titulo" style="color:var(--rosa)">Mis Personas Favoritas</div>
+    <div class="seccion-subtitulo">Quienes hacen este día posible</div>
+    <div class="divider-oro"><span class="divider-oro-icono">✦</span></div>
+    <p class="personas-intro">
+      ¡Gracias por acompañarme<br>en este día tan especial!
+    </p>
+    <div class="personas-grid">
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(232,160,180,0.15)">👨</div>
+        <div class="persona-nombre">Edgar Antonio<br>Matos Bello</div>
+        <div class="persona-rol">— Mi Padre —</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(122,184,212,0.15)">👩</div>
+        <div class="persona-nombre">Verónica<br>Páez Martínez</div>
+        <div class="persona-rol">— Mi Madre —</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(201,162,39,0.15)">👧</div>
+        <div class="persona-nombre">Kimberly<br>Matos</div>
+        <div class="persona-rol">— Mi Hermana —</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(78,201,194,0.15)">👧</div>
+        <div class="persona-nombre">Sarah<br>Matos</div>
+        <div class="persona-rol">— Mi Hermana —</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(232,160,180,0.15)">👵</div>
+        <div class="persona-nombre">María de los<br>Ángeles</div>
+        <div class="persona-rol">— Mi Abuela —</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(122,184,212,0.15)">👩‍👩‍👧</div>
+        <div class="persona-nombre">Saholina &<br>Tiensued</div>
+        <div class="persona-rol">— Mis Tías —</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGALOS -->
+  <section class="seccion regalos-bg" id="regalos">
+    <div class="seccion-titulo" style="color:var(--turquesa)">Regalos</div>
+    <div class="seccion-subtitulo">Si deseas obsequiarme algo</div>
+    <div class="divider-oro"><span class="divider-oro-icono">✦</span></div>
+    <p class="regalos-texto">
+      Para mí tu presencia es el mejor regalo,<br>
+      pero si deseas obsequiarme algo,<br>
+      te sugiero las siguientes opciones:
+    </p>
+    <div class="regalo-opciones">
+      <div class="regalo-chip">🎁 <strong>Regalo o Sobre de Efectivo</strong></div>
+      <div class="regalo-chip">💳 <strong>Mesa de Regalos</strong><br><span style="font-size:0.85rem;opacity:0.7">Liverpool / Amazon</span></div>
+    </div>
+  </section>
+
+  <!-- CONFIRMACION -->
+  <section class="seccion confirmacion-bg" id="confirmacion">
+    <div class="seccion-titulo" style="color:var(--dorado-light)">Confirmar Asistencia</div>
+    <div class="seccion-subtitulo">¡Espero verte ahí!</div>
+    <div class="divider-oro"><span class="divider-oro-icono">✦</span></div>
+    <p class="confirmacion-texto">
+      Espero que puedas venir a compartir<br>
+      conmigo este día inolvidable.<br><br>
+      Favor de confirmar tu presencia.<br>
+      <em>¡Muchas Gracias!</em>
+    </p>
+    <a href="https://api.whatsapp.com/send/?phone=526181111111&text=¡Hola! Confirmo mi asistencia a los XV de Fernanda Scarlet 🌸" target="_blank" class="whatsapp-btn">
+      <svg class="wp-icon" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.85L.057 23.571a.75.75 0 0 0 .92.92l5.638-1.504A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 0 1-5.14-1.426l-.36-.214-3.717.992.977-3.636-.233-.374A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+      </svg>
+      Confirmar por WhatsApp · 618-111-1111
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Fernanda Scarlet</span>
+    ✦ 1 · Agosto · 2026 ✦
+    <br><br>
+    Con amor, te esperamos 🌸
+  </footer>
+
+</div><!-- fin main-content -->
+
+<!-- MUSICA - igual al código de referencia -->
+<audio id="musica" loop>
+  <source src="birds.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botón música OFF -->
+<div class="musicaOff flotante" id="sonidomusicaOff" onclick="toggleMusica()" style="position:fixed;bottom:20px;right:20px;z-index:200;background-color:#9f767a;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+  <i class="fa fa-volume-up flotante" id="iconoMusica" style="color:white;font-size:1.3rem;"></i>
+</div>
+
+<!-- Botón música ON -->
+<div class="musicaOn flotante" id="sonidomusicaOn" onclick="toggleMusica()" style="position:fixed;bottom:20px;right:20px;z-index:200;background-color:rgb(159,118,122);border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.3);display:none;">
+  <i class="fa fa-volume-off" style="color:white;font-size:1.3rem;"></i>
+</div>
+
+<style>
+  .flotante { transition: transform 0.2s; }
+  .flotante:hover { transform: scale(1.1); }
+</style>
+
+<script>
+  // ESTRELLAS MODAL
+  const sc = document.getElementById('stars-container');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px;`;
+    sc.appendChild(s);
+  }
+
+  // PARTICLES
+  const pc=document.getElementById('particles');
+  const colors=['#e8a0b4','#7ab8d4','#4ec9c2','#c9a227','#f5e090'];
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const sz=3+Math.random()*8;
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;
+    pc.appendChild(p);
+  }
+
+  // ===== MUSICA =====
+  const audio = document.getElementById('musica');
+  audio.volume = 0.5;
+  let musicPlaying = false;
+
+  function toggleMusica() {
+    const btnOff = document.getElementById('sonidomusicaOff');
+    const btnOn  = document.getElementById('sonidomusicaOn');
+    if (musicPlaying) {
+      audio.pause();
+      btnOff.style.display = 'flex';
+      btnOn.style.display  = 'none';
+      musicPlaying = false;
+    } else {
+      audio.play().catch(()=>{});
+      btnOff.style.display = 'none';
+      btnOn.style.display  = 'flex';
+      musicPlaying = true;
+    }
+  }
+
+  function startMusic() {
+    audio.play().catch(()=>{});
+    musicPlaying = true;
+    document.getElementById('sonidomusicaOff').style.display = 'none';
+    document.getElementById('sonidomusicaOn').style.display  = 'flex';
+  }
+
+  // ENTRAR
+  function entrar() {
+    const modal = document.getElementById('modal-portada');
+    modal.classList.add('oculto');
+    setTimeout(()=>{ modal.style.display='none'; },900);
+    setTimeout(()=>{ document.getElementById('navbar').classList.add('visible'); },1200);
+    startMusic();
+  }
+
+  // NAV SCROLL
+  window.addEventListener('scroll', ()=>{
+    if(document.getElementById('modal-portada').classList.contains('oculto')){
+      document.getElementById('navbar').classList.toggle('visible', window.scrollY > 80);
+    }
+  });
+</script>
+</body>
+</html>
